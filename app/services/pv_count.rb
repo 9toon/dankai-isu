@@ -8,6 +8,10 @@ module PvCount
       storage.get(pv_key(controller_name, action_name)).to_i
     end
 
+    def delete_all_pvs
+      storage.keys("pv:*").each { |key| storage.del(key) }
+    end
+
     def pv_key(controller_name, action_name)
       "pv:controller:#{controller_name}:action:#{action_name}"
     end

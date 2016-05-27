@@ -11,6 +11,7 @@ class HomeController < ApplicationController
     Step.where("id > ?", 400000).delete_all
     RecipeImage.delete_all
     Pv.delete_all
+    PvCount.delete_all_pvs
     recipe_images_dir = Rails.root.join("public/uploads/recipe_images")
     recipe_images_dir.rmtree
     recipe_images_dir.mkpath
