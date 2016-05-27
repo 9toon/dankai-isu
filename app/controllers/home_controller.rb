@@ -14,5 +14,6 @@ class HomeController < ApplicationController
     recipe_images_dir = Rails.root.join("public/uploads/recipe_images")
     recipe_images_dir.rmtree
     recipe_images_dir.mkpath
+    Rails.root.join("public/uploads/recipe_images/resized").mkpath
   end
 end
