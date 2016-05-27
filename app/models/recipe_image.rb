@@ -11,15 +11,22 @@ class RecipeImage < ActiveRecord::Base
     "public#{path}"
   end
 
+  def resized_path
+    "/uploads/recipe_images/resized/#{self.id}.jpg"
+  end
+
+  def resized_to
+    "public#{resized_path}"
+  end
+
   def resize
-    result = nil
-    Dir.mktmpdir do |tmpdir|
-      dst = File.join(tmpdir, 'resized.jpeg')
-      unless system("convert", "-resize", '300x', Rails.root.join(upload_to).to_s, dst)
+    if File.exist? resized_to
+      File.binread(resized_to)
+    else
+      unless system("convert", "-resize", "300x", Rails.root.join(upload_to).to_s, resized_to)
         raise "Converting image failed"
       end
-      result = File.binread(dst)
+      File.binread(resized_to)
     end
-    result
   end
 end
