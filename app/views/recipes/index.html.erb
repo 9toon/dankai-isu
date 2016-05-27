@@ -30,4 +30,4 @@
 
 <%= link_to 'New Recipe', new_recipe_path %>
 
-<p>あなたは<%= PvCount::Client.new.fetch('recipes', 'index') %>人目の訪問者です</p>
+<p>あなたは<%= PvCount.fetch('recipes', 'index') %>人目の訪問者です</p>
