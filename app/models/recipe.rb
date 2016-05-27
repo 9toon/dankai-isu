@@ -3,10 +3,10 @@ class Recipe < ActiveRecord::Base
   has_many :steps, -> { order("id") }
 
   def viewed!
-    transaction do
-      self.lock!
-      self.view_count += 1
-      self.save!
-    end
+    PvCount.increment_recipe_pv(self.id)
+  end
+
+  def view_count
+    PvCount.fetch_recipe_pv(self.id)
   end
 end

@@ -16,6 +16,18 @@ module PvCount
       "pv:controller:#{controller_name}:action:#{action_name}"
     end
 
+    def increment_recipe_pv(recipe_id, cnt: 1)
+      storage.incrby(recipe_pv_key(recipe_id), cnt)
+    end
+
+    def fetch_recipe_pv(recipe_id)
+      storage.get(recipe_pv_key(recipe_id))
+    end
+
+    def recipe_pv_key(recipe_id)
+      "pv:recipe:#{recipe_id}"
+    end
+
     def storage
       @storage ||= Redis.current
     end
