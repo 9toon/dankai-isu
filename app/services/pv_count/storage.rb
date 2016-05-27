@@ -8,6 +8,10 @@ module PvCount
       @redis.incrby(pv_key(controller_name, action_name), cnt)
     end
 
+    def fetch(controller_name, action_name)
+      @redis.get(pv_key(controller_name, action_name))
+    end
+
     private
 
     def pv_key(controller_name, action_name)
