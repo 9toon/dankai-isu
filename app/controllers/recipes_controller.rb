@@ -4,13 +4,12 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    @recipes = Recipe.all.order('id')
-    if params[:query]
+    @recipes = unless params[:query]
+      Recipe.includes(:steps).order(:id).page(params[:page] || 1).per(10)
+    else
       query = "%#{params[:query]}%"
-      @recipes = @recipes.joins(:steps).where("steps.description LIKE ? OR recipes.name LIKE ?", query, query).uniq
+      Recipe.includes(:steps).joins(:steps).where("steps.description LIKE ? OR recipes.name LIKE ?", query, query).uniq.order(:id).page(params[:page] || 1).per(10)
     end
-    page = params[:page] || 1
-    @recipes = @recipes.page(page).per(10)
   end
 
   # GET /recipes/1
@@ -71,7 +70,7 @@ class RecipesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_recipe
-      @recipe = Recipe.find(params[:id])
+      @recipe = Recipe.where(id: params[:id]).first
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
