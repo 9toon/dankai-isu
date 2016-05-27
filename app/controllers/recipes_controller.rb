@@ -4,12 +4,11 @@ class RecipesController < ApplicationController
   # GET /recipes
   # GET /recipes.json
   def index
-    if params[:query]
-      query = "%#{params[:query]}%"
-      @recipes = Recipe.includes(:steps).joins(:steps).where("steps.description LIKE ? OR recipes.name LIKE ?", query, query).uniq.order(:id).page(params[:page] || 1).per(10)
+    @recipes = unless params[:query]
+      Recipe.includes(:steps).order(:id).page(params[:page] || 1).per(10)
     else
-      @recipes = Recipe.includes(:steps).order(:id).page(params[:page] || 1).per(10)
-      @recipes.instance_variable_set(:@total_count, Recipe.redis_total_count)
+      query = "%#{params[:query]}%"
+      Recipe.includes(:steps).joins(:steps).where("steps.description LIKE ? OR recipes.name LIKE ?", query, query).uniq.order(:id).page(params[:page] || 1).per(10)
     end
   end
 

@@ -12,12 +12,9 @@ class HomeController < ApplicationController
     RecipeImage.delete_all
     Pv.delete_all
     PvCount.delete_all_pvs
-    RecipeCount.delete_recipe_counts
     recipe_images_dir = Rails.root.join("public/uploads/recipe_images")
     recipe_images_dir.rmtree
     recipe_images_dir.mkpath
     Rails.root.join("public/uploads/recipe_images/resized").mkpath
-
-    RecipeCount.increment(cnt: Recipe.count)
   end
 end
