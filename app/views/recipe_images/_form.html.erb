@@ -1,0 +1,22 @@
+<%= form_for(@recipe_image_form, url: recipe_images_path) do |f| %>
+  <% if @recipe_image_form.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@recipe_image.errors.count, "error") %> prohibited this recipe_image from being saved:</h2>
+
+      <ul>
+      <% @recipe_image_form.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <%= f.hidden_field :recipe_id, value: @recipe.id %>
+  <div class="field">
+    <%= f.label :data %><br>
+    <%= f.file_field :data %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

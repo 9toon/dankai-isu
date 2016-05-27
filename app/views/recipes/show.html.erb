@@ -1,0 +1,29 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @recipe.name %>
+  <%= link_to '(Edit)', edit_recipe_path(@recipe) %>
+</p>
+
+<%- @recipe.recipe_images.each do |image| -%>
+  <div>
+    <%= image_tag(recipe_image_path(image, format: 'jpeg'), alt: "image:#{Digest::SHA256.hexdigest(image.resize)}") %>
+  </div>
+<%- end -%>
+
+<%= link_to 'Upload new image', new_recipe_recipe_image_path(@recipe) %>
+
+<h2>Steps</h2>
+
+<ol>
+<%- @recipe.steps.each do |step| -%>
+  <li><%= step.description %></li>
+<%- end -%>
+</ol>
+
+<div>
+  <%= link_to 'Add new step', new_recipe_step_path(@recipe) %>
+</div>
+
+<p>This recipe is viewed <%= @recipe.view_count %> times</p>
