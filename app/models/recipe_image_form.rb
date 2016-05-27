@@ -8,7 +8,6 @@ class RecipeImageForm
 
     recipe_image = RecipeImage.create(recipe_id: recipe_id)
     FileUtils.cp(self.data.path, recipe_image.upload_to)
-    FileUtils.chmod(0644, [recipe_image.upload_to])
     recipe_image
   end
 
