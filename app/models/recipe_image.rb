@@ -4,7 +4,7 @@ class RecipeImage < ActiveRecord::Base
   belongs_to :recipe
 
   def path
-    "/uploads/recipe_images/#{self.id}.jpg"
+    "/uploads/recipe_images/#{self.id}.jpeg"
   end
 
   def upload_to
@@ -12,7 +12,7 @@ class RecipeImage < ActiveRecord::Base
   end
 
   def resized_path
-    "/uploads/recipe_images/resized/#{self.id}.jpg"
+    "/uploads/recipe_images/resized/#{self.id}.jpeg"
   end
 
   def resized_to
