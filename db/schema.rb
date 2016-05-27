@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527023302) do
+ActiveRecord::Schema.define(version: 20160527054425) do
 
   create_table "pvs", force: :cascade do |t|
     t.datetime "created_at",             null: false
@@ -19,6 +19,8 @@ ActiveRecord::Schema.define(version: 20160527023302) do
     t.string   "controller", limit: 255
     t.string   "action",     limit: 255
   end
+
+  add_index "pvs", ["controller", "action"], name: "index_pvs_on_controller_and_action", using: :btree
 
   create_table "recipe_images", force: :cascade do |t|
     t.integer  "recipe_id",  limit: 4
