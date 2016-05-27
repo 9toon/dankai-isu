@@ -5,6 +5,8 @@ cd /home/ubuntu/cookpad
 
 sudo service mysql restart
 
+bundle check || bundle install
+
 bundle exec rake assets:precompile
 bundle exec rake db:migrate RAILS_ENV=production
 
