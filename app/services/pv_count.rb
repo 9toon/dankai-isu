@@ -20,6 +20,10 @@ module PvCount
       storage.incrby(recipe_pv_key(recipe_id), cnt)
     end
 
+    def fetch_recipe_pv(recipe_id)
+      storage.get(recipe_pv_key(recipe_id))
+    end
+
     def recipe_pv_key(recipe_id)
       "pv:recipe:#{recipe_id}"
     end

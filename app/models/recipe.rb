@@ -5,4 +5,8 @@ class Recipe < ActiveRecord::Base
   def viewed!
     PvCount.increment_recipe_pv(self.id)
   end
+
+  def view_count
+    PvCount.fetch_recipe_pv(self.id)
+  end
 end
