@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
 
   private
   def record_pv
-    Pv.create!(controller: params['controller'], action: params['action'])
+    PvCount::Client.new.increment(params[:controller], params[:action])
   end
 end
